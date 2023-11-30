@@ -1,2 +1,4 @@
-package com.example.exam.Model;public class Part {
+package com.example.exam.Model;
+
+public class Part {
 }
