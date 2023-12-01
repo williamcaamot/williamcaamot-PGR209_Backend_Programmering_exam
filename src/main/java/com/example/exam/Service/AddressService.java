@@ -3,6 +3,8 @@ package com.example.exam.Service;
 import com.example.exam.Model.Address;
 import com.example.exam.Repo.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +13,12 @@ import java.util.List;
 public class AddressService {
 
     AddressRepository addressRepository;
+
+    //Test with pagination, applies to repo, service and controller
+    public Page<Address> getPaginatedAddresses(int pageNumber, int pageSize){
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return addressRepository.findAll(pageRequest);
+    }
 
     @Autowired
     public AddressService(AddressRepository addressRepository) {
