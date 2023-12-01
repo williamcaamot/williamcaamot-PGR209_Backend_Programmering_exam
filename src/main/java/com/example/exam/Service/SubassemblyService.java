@@ -19,21 +19,21 @@ public class SubassemblyService {
 
 
 
-    public Subassembly getAddressById(Long id){
+    public Subassembly getSubassemblyById(Long id){
         return subassemblyRepository.findById(id).orElse(null);
     }
-    public List<Subassembly> getAddress(){
+    public List<Subassembly> getSubassembly(){
         return subassemblyRepository.findAll();
     }
 
-    public Subassembly addAddress(Subassembly subassembly){
+    public Subassembly addSubassembly(Subassembly subassembly){
         return subassemblyRepository.save(subassembly);
     }
 
-    public void deleteAddress(Subassembly subassembly){
+    public void deleteSubassembly(Subassembly subassembly){
         subassemblyRepository.delete(subassembly);
     }
-    public Subassembly updateAddress(Subassembly subassembly){
+    public Subassembly updateSubassembly(Subassembly subassembly){
         return subassemblyRepository.save(subassembly);
     }
 }

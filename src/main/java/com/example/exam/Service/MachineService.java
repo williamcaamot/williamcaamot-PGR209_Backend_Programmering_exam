@@ -20,21 +20,21 @@ public class MachineService {
     }
 
 
-    public Machine getAddressById(Long id){
+    public Machine getMachineById(Long id){
         return machineRepository.findById(id).orElse(null);
     }
-    public List<Machine> getAddress(){
+    public List<Machine> getMachine(){
         return machineRepository.findAll();
     }
 
-    public Machine addAddress(Machine machine){
+    public Machine addMachine(Machine machine){
         return machineRepository.save(machine);
     }
 
-    public void deleteAddress(Machine address){
+    public void deleteMachine(Machine address){
         machineRepository.delete(address);
     }
-    public Machine updateAddress(Machine machine){
+    public Machine updateMachine(Machine machine){
         return machineRepository.save(machine);
     }
 

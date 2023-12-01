@@ -18,21 +18,21 @@ public class PartService {
     }
 
 
-    public Part getAddressById(Long id){
+    public Part getPartById(Long id){
         return partRepository.findById(id).orElse(null);
     }
-    public List<Part> getAddress(){
+    public List<Part> getPart(){
         return partRepository.findAll();
     }
 
-    public Part addAddress(Part part){
+    public Part addPart(Part part){
         return partRepository.save(part);
     }
 
-    public void deleteAddress(Part part){
+    public void deletePart(Part part){
         partRepository.delete(part);
     }
-    public Part updateAddress(Part part){
+    public Part updatePart(Part part){
         return partRepository.save(part);
     }
     
