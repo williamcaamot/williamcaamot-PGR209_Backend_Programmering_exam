@@ -1,6 +1,7 @@
 package com.example.exam.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,7 +40,6 @@ public class Customer {
     @OneToMany
     @JoinColumn(name = "order_id")
     private List<Order> orders;
-
 
 
     public Customer(String customerName, String customerEmail){

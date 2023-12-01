@@ -1,5 +1,6 @@
 package com.example.exam.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,17 +22,15 @@ public class Address {
     @Column(name = "address_id")
     public Long addressId = 0L;
 
-    @Column(name = "customer_name")
-    private String customerName;
 
     @Column(name = "customer_address")
     private String customerAddress;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "addresses")
     private List<Customer> customers = new ArrayList<>();
 
-    public Address(String customerName, String customerAddress){
-        this.customerName = customerName;
+    public Address(String customerAddress){
         this.customerAddress = customerAddress;
     }
 

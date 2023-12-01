@@ -36,6 +36,12 @@ public class CustomerController {
         return customerService.addCustomer(customer);
     }
 
+    @PostMapping("/{customerId}/addresses/{addressId}")
+    public ResponseEntity<Customer> addAddressToCustomer(@PathVariable Long customerId, @PathVariable Long addressId) {
+        Customer updatedCustomer = customerService.addAddressToCustomer(customerId, addressId);
+        return ResponseEntity.ok(updatedCustomer);
+    }
+
     @DeleteMapping("")
     public void deleteCustomer(@RequestBody Customer customer) {
         customerService.deleteCustomer(customer);

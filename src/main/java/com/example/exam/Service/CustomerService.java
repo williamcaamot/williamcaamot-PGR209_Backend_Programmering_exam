@@ -1,6 +1,8 @@
 package com.example.exam.Service;
 
+import com.example.exam.Model.Address;
 import com.example.exam.Model.Customer;
+import com.example.exam.Repo.AddressRepository;
 import com.example.exam.Repo.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +13,11 @@ import java.util.List;
 @Service
 public class CustomerService {
     CustomerRepository customerRepository;
+    AddressRepository addressRepository;
     @Autowired
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, AddressRepository addressRepository) {
         this.customerRepository = customerRepository;
+        this.addressRepository = addressRepository;
     }
 
     public Customer getCustomerById(Long id) throws Exception {
@@ -23,6 +27,13 @@ public class CustomerService {
         return customerRepository.findAll();
     }
     public Customer addCustomer(Customer customer){
+        return customerRepository.save(customer);
+    }
+
+    public Customer addAddressToCustomer(Long customerId, Long addressId) {
+        Customer customer = customerRepository.findById(customerId).orElse(null);
+        Address address = addressRepository.findById(addressId).orElse(null);
+        customer.getAddresses().add(address);
         return customerRepository.save(customer);
     }
 
