@@ -23,8 +23,11 @@ public class CustomerService {
         return customerRepository.findById(id).orElseThrow(() -> new Exception("Problem")); //TODO can have custom exceptions here
     }
 
-    public List<Customer> getCustomers(Pageable pageable){
+    public List<Customer> getCustomers(){
         return customerRepository.findAll();
+    }
+    public Customer addCustomer(Customer customer){
+        return customerRepository.save(customer);
     }
 
 
