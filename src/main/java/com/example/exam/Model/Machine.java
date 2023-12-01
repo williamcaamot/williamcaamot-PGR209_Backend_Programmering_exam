@@ -21,4 +21,7 @@ public class Machine {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @ManyToOne
+    @JoinColumn(name = "subassembly_id")
+    private Subassembly subassembly;
 }
