@@ -25,26 +25,25 @@ public class CustomerController {
     public List<Customer> getCustomers() {
         return customerService.getCustomers();
     }
+
     @GetMapping("/{id}")
-    public Customer getCustomerById(@PathVariable Long id) {
-        try {
-            return customerService.getCustomerById(id);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public Customer getCustomerById(@PathVariable Long id) throws Exception {
+        return customerService.getCustomerById(id);
     }
 
     @PostMapping("")
-    public Customer addCustomer(@RequestBody Customer customer){
+    public Customer addCustomer(@RequestBody Customer customer) {
         return customerService.addCustomer(customer);
     }
+
     @DeleteMapping("")
-    public void deleteCustomer(@RequestBody Customer customer){
+    public void deleteCustomer(@RequestBody Customer customer) {
         customerService.deleteCustomer(customer);
         return;
     }
+
     @PutMapping("")
-    public Customer updateCustomer(@RequestBody Customer customer){
-        return  customerService.updateCustomer(customer);
+    public Customer updateCustomer(@RequestBody Customer customer) {
+        return customerService.updateCustomer(customer);
     }
 }

@@ -10,19 +10,15 @@ import java.util.List;
 
 @Service
 public class CustomerService {
-
     CustomerRepository customerRepository;
-
-
     @Autowired
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
     public Customer getCustomerById(Long id) throws Exception {
-        return customerRepository.findById(id).orElseThrow(() -> new Exception("Problem")); //TODO can have custom exceptions here
+        return customerRepository.findById(id).orElse(null); //TODO can have custom exceptions here
     }
-
     public List<Customer> getCustomers(){
         return customerRepository.findAll();
     }
