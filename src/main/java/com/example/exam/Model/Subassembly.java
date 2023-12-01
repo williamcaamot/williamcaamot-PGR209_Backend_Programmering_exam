@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -16,5 +18,13 @@ public class Subassembly {
     @SequenceGenerator(name = "subassembly_seg_gen", sequenceName = "subassembly_seq", allocationSize = 1)
     @Column(name = "subassembly_id")
     private Long subassemblyId = 0L;
+
+    @OneToMany
+    @JoinColumn(name = "machine_id")
+    private List<Machine> machines;
+
+    @OneToMany
+    @JoinColumn(name = "part_id")
+    private List<Part> parts;
 
 }

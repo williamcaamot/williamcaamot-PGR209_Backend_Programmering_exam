@@ -1,9 +1,13 @@
 package com.example.exam.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,7 +28,15 @@ public class Customer {
     @Column(name = "customer_email")
     private String customerEmail;
 
-    //TODO; add relations
+    @OneToMany(cascade = CascadeType.ALL)
+    //@JsonIgnoreProperties("Address") add in later
+    @JoinColumn(name = "address_id")
+    private List<Address> addresses = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "order_id")
+    private List<Order> orders;
+
 
 
     public Customer(String customerName, String customerEmail){

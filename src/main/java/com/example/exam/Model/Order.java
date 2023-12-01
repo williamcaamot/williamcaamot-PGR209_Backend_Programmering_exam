@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -16,4 +18,12 @@ public class Order {
     @SequenceGenerator(name = "order_seg_gen", sequenceName = "order_seq", allocationSize = 1)
     @Column(name = "order_id")
     private Long orderId = 0L;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @OneToMany
+    @JoinColumn(name = "machine_id")
+    private List<Machine> machines;
 }
