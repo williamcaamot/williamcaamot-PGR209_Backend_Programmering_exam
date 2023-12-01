@@ -30,5 +30,10 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-
+    public void deleteCustomer(Customer customer){
+        customerRepository.delete(customer);
+    }
+    public Customer updateCustomer(Customer customer){
+        return customerRepository.save(customer);
+    }
 }
