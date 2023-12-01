@@ -27,9 +27,7 @@ public class Address {
     @Column(name = "customer_address")
     private String customerAddress;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    //@JsonIgnoreProperties("customer") comes in later
-    @JoinColumn(name = "customer_id")
+    @ManyToMany(mappedBy = "addresses")
     private List<Customer> customers = new ArrayList<>();
 
     public Address(String customerName, String customerAddress){

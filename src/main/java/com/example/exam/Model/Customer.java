@@ -28,9 +28,12 @@ public class Customer {
     @Column(name = "customer_email")
     private String customerEmail;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    //@JsonIgnoreProperties("Address") add in later
-    @JoinColumn(name = "address_id")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "customer_address",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "address_id")
+    )
     private List<Address> addresses = new ArrayList<>();
 
     @OneToMany
