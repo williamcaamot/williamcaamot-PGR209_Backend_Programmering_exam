@@ -20,7 +20,7 @@ public class PartController {
 
     @GetMapping
     public List<Part> getParts(){
-        return partService.getPart();
+        return partService.getParts();
     }
 
     @GetMapping("/{id}")

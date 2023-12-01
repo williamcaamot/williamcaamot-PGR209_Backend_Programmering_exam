@@ -1,6 +1,6 @@
 package com.example.exam.Controller;
 
-import com.example.exam.Model.Order;
+import com.example.exam.Model.CustomerOrder;
 import com.example.exam.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,28 +19,28 @@ public class OrderController {
     }
 
     @GetMapping
-    public List<Order> getOrders(){
+    public List<CustomerOrder> getOrders(){
         return orderService.getOrder();
     }
 
     @GetMapping("/{id}")
-    public Order getOrderById(@PathVariable Long id){
+    public CustomerOrder getOrderById(@PathVariable Long id){
         return orderService.getOrderById(id);
     }
 
     @PostMapping("")
-    public Order addOrder(@RequestBody Order order){
-        return orderService.addOrder(order);
+    public CustomerOrder addOrder(@RequestBody CustomerOrder customerOrder){
+        return orderService.addOrder(customerOrder);
     }
 
     @DeleteMapping("")
-    public void deleteOrder(@RequestBody Order order){
-        orderService.deleteOrder(order);
+    public void deleteOrder(@RequestBody CustomerOrder customerOrder){
+        orderService.deleteOrder(customerOrder);
     }
 
     @PutMapping("")
-    public Order updateOrder(@RequestBody Order order){
-        return orderService.updateOrder(order);
+    public CustomerOrder updateOrder(@RequestBody CustomerOrder customerOrder){
+        return orderService.updateOrder(customerOrder);
     }
 
 

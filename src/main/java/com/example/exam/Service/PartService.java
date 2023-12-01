@@ -17,12 +17,13 @@ public class PartService {
         this.partRepository = partRepository;
     }
 
+    public List<Part> getParts(){
+        return partRepository.findAll();
+    }
+
 
     public Part getPartById(Long id){
         return partRepository.findById(id).orElse(null);
-    }
-    public List<Part> getPart(){
-        return partRepository.findAll();
     }
 
     public Part addPart(Part part){

@@ -1,6 +1,7 @@
 package com.example.exam.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -26,14 +27,8 @@ public class Address {
     @Column(name = "customer_address")
     private String customerAddress;
 
-    @JsonBackReference
-    @ManyToMany(mappedBy = "addresses")
+    @JsonIgnore
+    @ManyToMany(mappedBy = "addresses", cascade = CascadeType.ALL)
     private List<Customer> customers = new ArrayList<>();
-
-    public Address(String customerAddress){
-        this.customerAddress = customerAddress;
-    }
-
-
 
 }

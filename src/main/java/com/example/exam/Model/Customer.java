@@ -21,13 +21,14 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_seq_gen")
     @SequenceGenerator(name = "customer_seg_gen", sequenceName = "customer_seq", allocationSize = 1)
     @Column(name = "customer_id")
-    private long customerId = 0L;
+    private Long customerId = 0L;
 
     @Column(name = "customer_name")
     private String customerName;
 
     @Column(name = "customer_email")
     private String customerEmail;
+
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -37,9 +38,10 @@ public class Customer {
     )
     private List<Address> addresses = new ArrayList<>();
 
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
-    private List<Order> orders;
+    private List<CustomerOrder> customerOrders;
 
 
     public Customer(String customerName, String customerEmail){

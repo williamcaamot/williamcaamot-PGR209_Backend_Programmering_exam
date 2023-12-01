@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -19,9 +22,9 @@ public class Machine {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order order;
+    private CustomerOrder customerOrder;
 
-    @ManyToOne
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "subassembly_id")
-    private Subassembly subassembly;
+    private List<Subassembly> subassemblies;
 }

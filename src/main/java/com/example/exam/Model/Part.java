@@ -17,7 +17,5 @@ public class Part {
     @Column(name = "part_id")
     private Long partId = 0L;
 
-    @OneToOne
-    @JoinColumn(name = "subassembly_id")
-    private Part part;
+    private String partName;
 }

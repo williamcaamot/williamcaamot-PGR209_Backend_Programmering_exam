@@ -1,12 +1,10 @@
 package com.example.exam.Controller;
 
 import com.example.exam.Model.Address;
-import com.example.exam.Model.Customer;
 import com.example.exam.Service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

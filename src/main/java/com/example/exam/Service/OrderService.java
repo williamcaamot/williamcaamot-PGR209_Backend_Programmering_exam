@@ -1,6 +1,6 @@
 package com.example.exam.Service;
 
-import com.example.exam.Model.Order;
+import com.example.exam.Model.CustomerOrder;
 import com.example.exam.Repo.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,22 +18,22 @@ public class OrderService {
     }
 
 
-    public Order getOrderById(Long id){
+    public CustomerOrder getOrderById(Long id){
         return orderRepository.findById(id).orElse(null);
     }
-    public List<Order> getOrder(){
+    public List<CustomerOrder> getOrder(){
         return orderRepository.findAll();
     }
 
-    public Order addOrder(Order order){
-        return orderRepository.save(order);
+    public CustomerOrder addOrder(CustomerOrder customerOrder){
+        return orderRepository.save(customerOrder);
     }
 
-    public void deleteOrder(Order order){
-        orderRepository.delete(order);
+    public void deleteOrder(CustomerOrder customerOrder){
+        orderRepository.delete(customerOrder);
     }
-    public Order updateOrder(Order order){
-        return orderRepository.save(order);
+    public CustomerOrder updateOrder(CustomerOrder customerOrder){
+        return orderRepository.save(customerOrder);
     }
 
 
