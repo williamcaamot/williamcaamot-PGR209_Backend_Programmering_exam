@@ -16,7 +16,22 @@ public class AddressController {
 
     private AddressService addressService;
 
+
+
+
+    @Autowired
+    public AddressController(AddressService addressService) {
+        this.addressService = addressService;
+    }
+
+
+    //@GetMapping("")
+    //public List<Address> getAddress() {
+    //    return addressService.getAddress();
+    //}
+
     //Test with pagination
+    @GetMapping("/")
     public ResponseEntity<List<Address>> getAddresses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size){
@@ -27,17 +42,6 @@ public class AddressController {
         }else{
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-    }
-
-    @Autowired
-    public AddressController(AddressService addressService) {
-        this.addressService = addressService;
-    }
-
-
-    @GetMapping("")
-    public List<Address> getAddress() {
-        return addressService.getAddress();
     }
 
     @GetMapping("/{id}")
