@@ -26,11 +26,11 @@ public class Machine {
     private String machineDescription;
 
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private CustomerOrder customerOrder;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "subassembly_id")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="machine_subassembly",
+            joinColumns = @JoinColumn(name="machine_id"),
+            inverseJoinColumns = @JoinColumn(name="subassembly_id")
+    )
     private List<Subassembly> subassemblies;
 }
