@@ -17,7 +17,7 @@ public class Subassembly {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "subassembly_seq_gen")
     @SequenceGenerator(name = "subassembly_seg_gen", sequenceName = "subassembly_seq", allocationSize = 1)
     @Column(name = "subassembly_id")
-    private Long subassemblyId = 0L;
+    public Long subassemblyId = 0L;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "part_id")
