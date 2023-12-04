@@ -1,5 +1,6 @@
 package com.example.exam;
 
+import com.example.exam.MachineFaker.MachineFaker;
 import com.example.exam.Model.Part;
 import com.example.exam.Repo.AddressRepository;
 import com.example.exam.Repo.CustomerRepository;
@@ -24,9 +25,9 @@ public class ExamApplication {
             CustomerRepository customerRepository,
             AddressRepository addressRepository,
             PartRepository partRepository){
-        Faker faker = new Faker();
+        MachineFaker faker = new MachineFaker();
             for(int i = 0; i < 20; i++){
-                partRepository.save(new Part(faker.ancient().god(),faker.ancient().titan()));
+                partRepository.save(new Part(faker.partName(), faker.ancient().titan()));
             }
 
         return null;
