@@ -24,8 +24,14 @@ public class Address {
     public Long addressId = 0L;
 
 
-    @Column(name = "customer_address")
-    private String customerAddress;
+    @Column(name = "address_country")
+    private String country;
+
+    @Column(name="address_area")
+    private String area;
+
+    @Column(name = "address_street_and_number")
+    private String streetAndNumber;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "addresses", cascade = CascadeType.ALL)

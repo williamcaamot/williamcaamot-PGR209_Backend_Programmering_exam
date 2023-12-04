@@ -19,9 +19,13 @@ public class Subassembly {
     @Column(name = "subassembly_id")
     private Long subassemblyId = 0L;
 
-
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "part_id")
     private List<Part> parts;
 
+    @Column(name="subassembly_name")
+    private String subassemblyName;
+
+    @Column(name="subassembly_description")
+    private String subassemblyDescription;
 }

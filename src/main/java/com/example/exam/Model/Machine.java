@@ -19,6 +19,12 @@ public class Machine {
     @Column(name = "machine_id")
     public Long machineId = 0L;
 
+    @Column(name="machine_name")
+    private String machineName;
+
+    @Column(name="machine_description")
+    private String machineDescription;
+
 
     @ManyToOne
     @JoinColumn(name = "order_id")

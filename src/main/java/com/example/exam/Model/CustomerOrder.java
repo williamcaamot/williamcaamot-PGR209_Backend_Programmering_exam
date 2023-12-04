@@ -19,7 +19,9 @@ public class CustomerOrder {
     @SequenceGenerator(name = "order_seg_gen", sequenceName = "order_seq", allocationSize = 1)
     @Column(name = "order_id")
     private Long orderId = 0L;
-    private String orderName;
+
+    @Column(name = "order_description")
+    private String orderDescription;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
