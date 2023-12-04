@@ -2,6 +2,7 @@ package com.example.exam.part;
 
 
 import com.example.exam.Model.Part;
+import com.example.exam.Repo.PartRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class PartEndToEndTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private PartRepository partRepository;
+
     @Test
     void shouldFetchParts() throws Exception {
         mockMvc.perform(get("/api/part"))
@@ -34,9 +38,11 @@ public class PartEndToEndTest {
 
     @Test
     void shouldAddNewPart() throws Exception {
+        //Arrange
         Part part = new Part("M5 Bolt", "Used for bolting stuff together");
         String partJson = objectMapper.writeValueAsString(part);
 
+        //Act
         MvcResult res = mockMvc.perform(post("/api/part")
                         .contentType("application/json")
                         .content(partJson))
@@ -46,8 +52,14 @@ public class PartEndToEndTest {
         String responseString = res.getResponse().getContentAsString();
         Part addedPart = objectMapper.readValue(responseString, Part.class);
 
+
+        //Assert
         assert addedPart.getPartDescription().equals(part.getPartDescription());
         assert addedPart.getPartName().equals(part.getPartName());
+
+
+        //Cleanup
+        partRepository.delete(addedPart);
     }
 
     @Test
@@ -83,6 +95,10 @@ public class PartEndToEndTest {
         assert updatedPart.getPartDescription().equals(updatePart.getPartDescription());
         assert updatedPart.getPartName().equals(updatePart.getPartName());
 
+        //Cleanup
+        partRepository.delete(updatedPart);
+        partRepository.delete(addedPart);
+
     }
 
     @Test
@@ -102,6 +118,8 @@ public class PartEndToEndTest {
 
         String responseString = res.getResponse().getContentAsString();
         assert responseString.equals("Part with ID " + part.getPartId() + " could not be found!");
+
+
     }
 
 
