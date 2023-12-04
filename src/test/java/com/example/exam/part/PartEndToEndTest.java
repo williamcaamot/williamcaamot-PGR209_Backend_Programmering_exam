@@ -56,7 +56,6 @@ public class PartEndToEndTest {
         String partJson = objectMapper.writeValueAsString(part);
 
         Part updatePart = new Part("Updated Part Name", "Updated Part Description");
-        String updatePartJson = objectMapper.writeValueAsString(updatePart);
 
         MvcResult res = mockMvc.perform(post("/api/part")
                         .contentType("application/json")
@@ -67,15 +66,13 @@ public class PartEndToEndTest {
         String responseString = res.getResponse().getContentAsString();
         Part addedPart = objectMapper.readValue(responseString, Part.class);
         updatePart.setPartId(addedPart.getPartId());
+        String updatePartJson = objectMapper.writeValueAsString(updatePart);
 
         MvcResult updateRes = mockMvc.perform(put("/api/part")
                         .contentType("application/json")
                         .content(updatePartJson))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andReturn();
-
-
-
 
         String updateResponseString = updateRes.getResponse().getContentAsString();
         Part updatedPart = objectMapper.readValue(updateResponseString, Part.class);
@@ -86,6 +83,25 @@ public class PartEndToEndTest {
         assert updatedPart.getPartDescription().equals(updatePart.getPartDescription());
         assert updatedPart.getPartName().equals(updatePart.getPartName());
 
+    }
+
+    @Test
+    void shouldTryToUpdateNonExistingPartAndGetErrorMessage() throws Exception {
+        Part part = new Part();
+        part.setPartName("Partname");
+        part.setPartDescription("Part description");
+        part.setPartId(3424324L);
+
+        String partJson = objectMapper.writeValueAsString(part);
+
+        MvcResult res = mockMvc.perform(put("/api/part")
+                        .contentType("application/json")
+                        .content(partJson))
+                .andExpect(status().isNotFound())
+                .andReturn();
+
+        String responseString = res.getResponse().getContentAsString();
+        assert responseString.equals("Part with ID " + part.getPartId() + " could not be found!");
     }
 
 
