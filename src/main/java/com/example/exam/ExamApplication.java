@@ -29,8 +29,6 @@ public class ExamApplication {
                 partRepository.save(new Part(faker.ancient().god(),faker.ancient().titan()));
             }
 
-
-
         return null;
     }
 
