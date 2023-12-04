@@ -1,8 +1,10 @@
 package com.example.exam.Controller;
 
+import com.example.exam.Model.Address;
 import com.example.exam.Model.Customer;
 import com.example.exam.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +22,22 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("")
+    /*@GetMapping("")
     public List<Customer> getCustomers() {
         return customerService.getCustomers();
+    } */
+
+    @GetMapping("/")
+    public ResponseEntity<List<Customer>> getCustomers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        Page<Customer> pageResult = customerService.getPaginatedCustomers(page, size);
+
+        if (!pageResult.isEmpty()){
+            return new ResponseEntity<>(pageResult.getContent(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @GetMapping("/{id}")

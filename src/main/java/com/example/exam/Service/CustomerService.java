@@ -5,6 +5,8 @@ import com.example.exam.Model.Customer;
 import com.example.exam.Repo.AddressRepository;
 import com.example.exam.Repo.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +19,11 @@ public class CustomerService {
     public CustomerService(CustomerRepository customerRepository, AddressRepository addressRepository) {
         this.customerRepository = customerRepository;
         this.addressRepository = addressRepository;
+    }
+
+    public Page<Customer> getPaginatedCustomers(int pageNumber, int pageSize){
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return customerRepository.findAll(pageRequest);
     }
 
     public Customer getCustomerById(Long id) throws Exception {

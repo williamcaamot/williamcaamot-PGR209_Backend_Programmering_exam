@@ -1,8 +1,10 @@
 package com.example.exam.Controller;
 
 import com.example.exam.Model.CustomerOrder;
+import com.example.exam.Model.Machine;
 import com.example.exam.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +22,22 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping
+    /*@GetMapping
     public List<CustomerOrder> getOrders(){
         return orderService.getOrder();
+    } */
+
+    @GetMapping("/")
+    public ResponseEntity<List<CustomerOrder>> getOrders(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        Page<CustomerOrder> pageResult = orderService.getPaginatedOrders(page, size);
+
+        if (!pageResult.isEmpty()){
+            return new ResponseEntity<>(pageResult.getContent(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @GetMapping("/{id}")

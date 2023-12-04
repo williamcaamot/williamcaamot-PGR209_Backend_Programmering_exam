@@ -1,8 +1,11 @@
 package com.example.exam.Service;
 
 import com.example.exam.Model.CustomerOrder;
+import com.example.exam.Model.Machine;
 import com.example.exam.Repo.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +20,10 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    public Page<CustomerOrder> getPaginatedOrders(int pageNumber, int pageSize){
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return orderRepository.findAll(pageRequest);
+    }
 
     public CustomerOrder getOrderById(Long id){
         return orderRepository.findById(id).orElse(null);

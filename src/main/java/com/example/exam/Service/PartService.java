@@ -1,8 +1,11 @@
 package com.example.exam.Service;
 
+import com.example.exam.Model.CustomerOrder;
 import com.example.exam.Model.Part;
 import com.example.exam.Repo.PartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +18,11 @@ public class PartService {
     @Autowired
     public PartService(PartRepository partRepository) {
         this.partRepository = partRepository;
+    }
+
+    public Page<Part> getPaginatedParts(int pageNumber, int pageSize){
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return partRepository.findAll(pageRequest);
     }
 
     public List<Part> getParts(){

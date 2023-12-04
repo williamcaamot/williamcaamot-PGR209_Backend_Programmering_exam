@@ -1,8 +1,10 @@
 package com.example.exam.Controller;
 
+import com.example.exam.Model.Part;
 import com.example.exam.Model.Subassembly;
 import com.example.exam.Service.SubassemblyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +22,22 @@ public class SubassemblyController {
         this.subassemblyService = subassemblyService;
     }
 
-    @GetMapping
+    /*@GetMapping
     public List<Subassembly> getSubassembly(){
         return subassemblyService.getSubassembly();
+    } */
+
+    @GetMapping("/")
+    public ResponseEntity<List<Subassembly>> getSubassembly(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        Page<Subassembly> pageResult = subassemblyService.getPaginatedSubassembly(page, size);
+
+        if (!pageResult.isEmpty()){
+            return new ResponseEntity<>(pageResult.getContent(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @GetMapping("/{id}")
