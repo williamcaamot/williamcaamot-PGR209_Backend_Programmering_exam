@@ -3,6 +3,7 @@ package com.example.exam.Controller;
 import com.example.exam.Model.Address;
 import com.example.exam.Model.Customer;
 import com.example.exam.Service.CustomerService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -65,5 +66,11 @@ public class CustomerController {
     @PutMapping("")
     public Customer updateCustomer(@RequestBody Customer customer) {
         return customerService.updateCustomer(customer);
+    }
+
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<String> handleEntityNotFound(EntityNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }

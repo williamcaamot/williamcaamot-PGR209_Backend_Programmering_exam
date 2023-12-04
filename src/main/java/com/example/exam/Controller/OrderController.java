@@ -3,6 +3,7 @@ package com.example.exam.Controller;
 import com.example.exam.Model.CustomerOrder;
 import com.example.exam.Model.Machine;
 import com.example.exam.Service.OrderService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -61,6 +62,8 @@ public class OrderController {
         return orderService.updateOrder(customerOrder);
     }
 
-
-
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<String> handleEntityNotFound(EntityNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
 }

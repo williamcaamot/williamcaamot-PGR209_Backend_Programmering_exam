@@ -27,7 +27,7 @@ public class ExamApplication {
             PartRepository partRepository){
         MachineFaker faker = new MachineFaker();
             for(int i = 0; i < 20; i++){
-                partRepository.save(new Part(faker.partName(), faker.ancient().titan()));
+                partRepository.save(new Part(faker.partName(), faker.partDescription()));
             }
 
         return null;

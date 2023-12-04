@@ -3,6 +3,7 @@ package com.example.exam.Service;
 import com.example.exam.Model.CustomerOrder;
 import com.example.exam.Model.Part;
 import com.example.exam.Repo.PartRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,6 +43,7 @@ public class PartService {
         partRepository.delete(part);
     }
     public Part updatePart(Part part){
+        partRepository.findById(part.getPartId()).orElseThrow(() -> new EntityNotFoundException("Part with ID " + part.getPartId() + " could not be found!"));
         return partRepository.save(part);
     }
     

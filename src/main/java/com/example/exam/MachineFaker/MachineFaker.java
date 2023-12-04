@@ -29,9 +29,14 @@ public class MachineFaker extends Faker {
     }
 
     public String partDescription() {
+        List<String> partDescriptions = new ArrayList<>();
+        partDescriptions.add("For screwing");
+        partDescriptions.add("For bolting");
+        partDescriptions.add("For screwing in wood");
+        partDescriptions.add("For screwing metal");
 
-
-        return new String("Lol");
+        int randomNumber = random().nextInt(0, partDescriptions.size() - 1);
+        return partDescriptions.get(randomNumber);
     }
 
 

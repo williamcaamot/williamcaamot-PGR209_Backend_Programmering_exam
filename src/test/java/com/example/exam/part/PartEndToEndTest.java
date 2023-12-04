@@ -10,9 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -26,7 +24,7 @@ public class PartEndToEndTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void shouldFetchParts() throws Exception{
+    void shouldFetchParts() throws Exception {
         mockMvc.perform(get("/api/part"))
                 .andExpect(status().isOk())
                 .andDo(result -> {
@@ -35,25 +33,60 @@ public class PartEndToEndTest {
     }
 
     @Test
-    void shouldAddNewPart() throws Exception{
+    void shouldAddNewPart() throws Exception {
         Part part = new Part("M5 Bolt", "Used for bolting stuff together");
         String partJson = objectMapper.writeValueAsString(part);
 
         MvcResult res = mockMvc.perform(post("/api/part")
                         .contentType("application/json")
                         .content(partJson))
-                .andDo(print())
                 .andExpect(status().isCreated())
                 .andReturn();
 
         String responseString = res.getResponse().getContentAsString();
         Part addedPart = objectMapper.readValue(responseString, Part.class);
 
-
         assert addedPart.getPartDescription().equals(part.getPartDescription());
         assert addedPart.getPartName().equals(part.getPartName());
     }
 
+    @Test
+    void shouldAddNewPartAndUpdateIt() throws Exception {
+        Part part = new Part("M5 Bolt", "Used for bolting stuff together");
+        String partJson = objectMapper.writeValueAsString(part);
+
+        Part updatePart = new Part("Updated Part Name", "Updated Part Description");
+        String updatePartJson = objectMapper.writeValueAsString(updatePart);
+
+        MvcResult res = mockMvc.perform(post("/api/part")
+                        .contentType("application/json")
+                        .content(partJson))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        String responseString = res.getResponse().getContentAsString();
+        Part addedPart = objectMapper.readValue(responseString, Part.class);
+        updatePart.setPartId(addedPart.getPartId());
+
+        MvcResult updateRes = mockMvc.perform(put("/api/part")
+                        .contentType("application/json")
+                        .content(updatePartJson))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+
+
+
+        String updateResponseString = updateRes.getResponse().getContentAsString();
+        Part updatedPart = objectMapper.readValue(updateResponseString, Part.class);
+
+        assert addedPart.getPartDescription().equals(part.getPartDescription());
+        assert addedPart.getPartName().equals(part.getPartName());
+
+        assert updatedPart.getPartDescription().equals(updatePart.getPartDescription());
+        assert updatedPart.getPartName().equals(updatePart.getPartName());
+
+    }
 
 
 }

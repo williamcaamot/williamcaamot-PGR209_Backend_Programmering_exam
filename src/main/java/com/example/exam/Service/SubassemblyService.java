@@ -3,6 +3,7 @@ package com.example.exam.Service;
 import com.example.exam.Model.Part;
 import com.example.exam.Model.Subassembly;
 import com.example.exam.Repo.SubassemblyRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,6 +41,7 @@ public class SubassemblyService {
         subassemblyRepository.delete(subassembly);
     }
     public Subassembly updateSubassembly(Subassembly subassembly){
+        subassemblyRepository.findById(subassembly.getSubassemblyId()).orElseThrow(() -> new EntityNotFoundException("Subassembly with ID " + subassembly.getSubassemblyId() + " could not be found!"));
         return subassemblyRepository.save(subassembly);
     }
 }
