@@ -19,7 +19,7 @@ public class ExamApplication {
 
 
 
-    @Bean
+    @Bean //THIS IS NOT SOMETHING THAT WE WOULD HAVE IN A REAL APPLICATION; ONLY FOR DEMO APPLICATION
     CommandLineRunner commandLineRunner(
             CustomerRepository customerRepository,
             AddressRepository addressRepository,
