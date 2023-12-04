@@ -45,7 +45,6 @@ public class CustomerController {
     @DeleteMapping("")
     public void deleteCustomer(@RequestBody Customer customer) {
         customerService.deleteCustomer(customer);
-        return;
     }
 
     @PutMapping("")

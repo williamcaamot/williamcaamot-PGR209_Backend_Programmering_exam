@@ -37,13 +37,15 @@ public class PartController {
     }
 
     @DeleteMapping("")
-    public void deletePart(@RequestBody Part part){
+    public ResponseEntity<Void> deletePart(@RequestBody Part part){
         partService.deletePart(part);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping("")
-    public Part updatePart(@RequestBody Part part){
-        return partService.updatePart(part);
+    public ResponseEntity<Part> updatePart(@RequestBody Part part){
+        Part updatedPart = partService.updatePart(part);
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedPart);
     }
 
 }
