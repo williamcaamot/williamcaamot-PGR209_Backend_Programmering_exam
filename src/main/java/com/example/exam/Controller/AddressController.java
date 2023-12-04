@@ -50,8 +50,9 @@ public class AddressController {
     }
 
     @PostMapping("")
-    public Address addAddress(@RequestBody Address address) {
-        return addressService.addAddress(address);
+    public ResponseEntity<Address> addAddress(@RequestBody Address address) {
+        Address addedAddress = addressService.addAddress(address);
+        return ResponseEntity.status(HttpStatus.CREATED).body(addedAddress);
     }
 
     @DeleteMapping("")

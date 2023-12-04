@@ -3,6 +3,8 @@ package com.example.exam.Controller;
 import com.example.exam.Model.Part;
 import com.example.exam.Service.PartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +31,9 @@ public class PartController {
     }
 
     @PostMapping("")
-    public Part addPart(@RequestBody Part part){
-        return partService.addPart(part);
+    public ResponseEntity<Part> addPart(@RequestBody Part part){
+        Part addedPart = partService.addPart(part);
+        return ResponseEntity.status(HttpStatus.CREATED).body(addedPart);
     }
 
     @DeleteMapping("")

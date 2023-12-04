@@ -3,6 +3,8 @@ package com.example.exam.Controller;
 import com.example.exam.Model.Subassembly;
 import com.example.exam.Service.SubassemblyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +31,9 @@ public class SubassemblyController {
     }
 
     @PostMapping("")
-    public Subassembly addSubassembly(@RequestBody Subassembly subassembly){
-        return subassemblyService.addSubassembly(subassembly);
+    public ResponseEntity<Subassembly> addSubassembly(@RequestBody Subassembly subassembly){
+        Subassembly addedSubassembly = subassemblyService.addSubassembly(subassembly);
+        return ResponseEntity.status(HttpStatus.CREATED).body(subassembly);
     }
 
     @DeleteMapping("")

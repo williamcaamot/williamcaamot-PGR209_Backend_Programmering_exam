@@ -3,6 +3,8 @@ package com.example.exam.Controller;
 import com.example.exam.Model.CustomerOrder;
 import com.example.exam.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +31,9 @@ public class OrderController {
     }
 
     @PostMapping("")
-    public CustomerOrder addOrder(@RequestBody CustomerOrder customerOrder){
-        return orderService.addOrder(customerOrder);
+    public ResponseEntity<CustomerOrder> addOrder(@RequestBody CustomerOrder customerOrder){
+        CustomerOrder addedCustomerOrder = orderService.addOrder(customerOrder);
+        return ResponseEntity.status(HttpStatus.CREATED).body(addedCustomerOrder);
     }
 
     @DeleteMapping("")

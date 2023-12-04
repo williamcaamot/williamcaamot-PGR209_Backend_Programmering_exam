@@ -3,6 +3,7 @@ package com.example.exam.Controller;
 import com.example.exam.Model.Customer;
 import com.example.exam.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,14 +31,15 @@ public class CustomerController {
     }
 
     @PostMapping("")
-    public Customer addCustomer(@RequestBody Customer customer) {
-        return customerService.addCustomer(customer);
+    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
+        Customer addedCustomer = customerService.addCustomer(customer);
+        return ResponseEntity.status(HttpStatus.CREATED).body(addedCustomer);
     }
 
     @PostMapping("/{customerId}/addresses/{addressId}")
     public ResponseEntity<Customer> addAddressToCustomer(@PathVariable Long customerId, @PathVariable Long addressId) {
         Customer updatedCustomer = customerService.addAddressToCustomer(customerId, addressId);
-        return ResponseEntity.ok(updatedCustomer);
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedCustomer);
     }
 
     @DeleteMapping("")

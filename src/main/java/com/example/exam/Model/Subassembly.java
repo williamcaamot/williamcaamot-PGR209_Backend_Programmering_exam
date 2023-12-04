@@ -19,8 +19,12 @@ public class Subassembly {
     @Column(name = "subassembly_id")
     public Long subassemblyId = 0L;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "part_id")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="subassembly_part",
+            joinColumns = @JoinColumn(name="subassembly_id"),
+            inverseJoinColumns = @JoinColumn(name="part_id")
+    )
     private List<Part> parts;
 
     @Column(name="subassembly_name")
@@ -28,4 +32,5 @@ public class Subassembly {
 
     @Column(name="subassembly_description")
     private String subassemblyDescription;
+
 }

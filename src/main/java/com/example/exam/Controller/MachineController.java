@@ -3,6 +3,7 @@ package com.example.exam.Controller;
 import com.example.exam.Model.Machine;
 import com.example.exam.Service.MachineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +33,9 @@ public class MachineController {
     }
 
     @PostMapping("")
-    public Machine addMachine(@RequestBody Machine customer) {
-        return machineService.addMachine(customer);
+    public ResponseEntity<Machine> addMachine(@RequestBody Machine customer) {
+        Machine addedMachine = machineService.addMachine(customer);
+        return ResponseEntity.status(HttpStatus.CREATED).body(addedMachine);
     }
 
     @DeleteMapping("")
