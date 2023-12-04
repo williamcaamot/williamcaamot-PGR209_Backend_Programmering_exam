@@ -22,4 +22,9 @@ public class Part {
 
     @Column(name="part_description")
     private String partDescription;
+
+    public Part(String partName, String partDescription) {
+        this.partName = partName;
+        this.partDescription = partDescription;
+    }
 }
