@@ -3,6 +3,7 @@ package com.example.exam.Service;
 import com.example.exam.Model.CustomerOrder;
 import com.example.exam.Model.Machine;
 import com.example.exam.Repo.OrderRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,6 +41,7 @@ public class OrderService {
         orderRepository.delete(customerOrder);
     }
     public CustomerOrder updateOrder(CustomerOrder customerOrder){
+        orderRepository.findById(customerOrder.getOrderId()).orElseThrow(() -> new EntityNotFoundException("Orde with ID " + customerOrder.getOrderId() + " could not be found!"));
         return orderRepository.save(customerOrder);
     }
 

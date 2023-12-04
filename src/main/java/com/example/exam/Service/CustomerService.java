@@ -4,6 +4,7 @@ import com.example.exam.Model.Address;
 import com.example.exam.Model.Customer;
 import com.example.exam.Repo.AddressRepository;
 import com.example.exam.Repo.CustomerRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,6 +48,7 @@ public class CustomerService {
         customerRepository.delete(customer);
     }
     public Customer updateCustomer(Customer customer){
+        customerRepository.findById(customer.getCustomerId()).orElseThrow(() -> new EntityNotFoundException("Customer with ID: " + customer.getCustomerId() + " could not be found!"));
         return customerRepository.save(customer);
     }
 }

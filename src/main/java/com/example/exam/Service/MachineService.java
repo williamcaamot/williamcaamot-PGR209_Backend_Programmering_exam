@@ -3,6 +3,7 @@ package com.example.exam.Service;
 import com.example.exam.Model.Customer;
 import com.example.exam.Model.Machine;
 import com.example.exam.Repo.MachineRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,6 +43,7 @@ public class MachineService {
         machineRepository.delete(address);
     }
     public Machine updateMachine(Machine machine){
+        machineRepository.findById(machine.getMachineId()).orElseThrow(() -> new EntityNotFoundException("Machine with ID " + machine.getMachineId() + " could not be found!"));
         return machineRepository.save(machine);
     }
 

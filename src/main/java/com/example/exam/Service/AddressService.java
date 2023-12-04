@@ -2,6 +2,7 @@ package com.example.exam.Service;
 
 import com.example.exam.Model.Address;
 import com.example.exam.Repo.AddressRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,6 +42,7 @@ public class AddressService {
         addressRepository.delete(address);
     }
     public Address updateAddress(Address address){
+        addressRepository.findById(address.getAddressId()).orElseThrow(() -> new EntityNotFoundException("Address with ID: " + address.getAddressId() + "could not be found!"));
         return addressRepository.save(address);
     }
 
