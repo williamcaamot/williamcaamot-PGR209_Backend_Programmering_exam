@@ -29,7 +29,7 @@ public class MachineController {
         return machineService.getMachine();
     } */
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Machine>> getMachine(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size){

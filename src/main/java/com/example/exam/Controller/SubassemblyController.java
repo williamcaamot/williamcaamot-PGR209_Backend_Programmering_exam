@@ -27,7 +27,7 @@ public class SubassemblyController {
         return subassemblyService.getSubassembly();
     } */
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Subassembly>> getSubassembly(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size){

@@ -27,7 +27,7 @@ public class PartController {
         return partService.getParts();
     } */
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Part>> getParts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size){

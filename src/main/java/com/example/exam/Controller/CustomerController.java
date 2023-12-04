@@ -27,7 +27,7 @@ public class CustomerController {
         return customerService.getCustomers();
     } */
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Customer>> getCustomers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size){

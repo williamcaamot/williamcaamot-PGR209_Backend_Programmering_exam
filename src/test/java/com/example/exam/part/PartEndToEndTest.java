@@ -40,7 +40,7 @@ public class PartEndToEndTest {
         String partJson = objectMapper.writeValueAsString(part);
 
         MvcResult res = mockMvc.perform(post("/api/part")
-                        .contentType("application/jsoN")
+                        .contentType("application/jsom")
                         .content(partJson))
                 .andDo(print())
                 .andExpect(status().isCreated())

@@ -27,7 +27,7 @@ public class OrderController {
         return orderService.getOrder();
     } */
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<CustomerOrder>> getOrders(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size){

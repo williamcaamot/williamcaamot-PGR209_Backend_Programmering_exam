@@ -31,7 +31,7 @@ public class AddressController {
     //}
 
     //Test with pagination
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Address>> getAddresses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size){
