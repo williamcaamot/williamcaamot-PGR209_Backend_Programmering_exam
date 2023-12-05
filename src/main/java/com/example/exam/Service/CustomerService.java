@@ -38,8 +38,8 @@ public class CustomerService {
     }
 
     public Customer addAddressToCustomer(Long customerId, Long addressId) {
-        Customer customer = customerRepository.findById(customerId).orElse(null);
-        Address address = addressRepository.findById(addressId).orElse(null);
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new EntityNotFoundException("Customer with ID: " + customerId + " could not be found!"));
+        Address address = addressRepository.findById(addressId).orElseThrow(() -> new EntityNotFoundException("Address with ID: " + addressId + " could not be found!"));
         customer.getAddresses().add(address);
         return customerRepository.save(customer);
     }
