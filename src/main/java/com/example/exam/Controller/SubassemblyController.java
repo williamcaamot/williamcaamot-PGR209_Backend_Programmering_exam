@@ -23,10 +23,10 @@ public class SubassemblyController {
         this.subassemblyService = subassemblyService;
     }
 
-    /*@GetMapping
-    public List<Subassembly> getSubassembly(){
-        return subassemblyService.getSubassembly();
-    } */
+    @GetMapping("/{id}")
+    public Subassembly getSubassemblyById(@PathVariable Long id){
+        return subassemblyService.getSubassemblyById(id);
+    }
 
     @GetMapping("")
     public ResponseEntity<List<Subassembly>> getSubassembly(
@@ -41,17 +41,11 @@ public class SubassemblyController {
         }
     }
 
-    @GetMapping("/{id}")
-    public Subassembly getSubassemblyById(@PathVariable Long id){
-        return subassemblyService.getSubassemblyById(id);
-    }
-
     @PostMapping("")
     public ResponseEntity<Subassembly> addSubassembly(@RequestBody Subassembly subassembly){
         Subassembly addedSubassembly = subassemblyService.addSubassembly(subassembly);
         return ResponseEntity.status(HttpStatus.CREATED).body(subassembly);
     }
-
     @DeleteMapping("")
     public void deleteSubassembly(@RequestBody Subassembly subassembly){
         subassemblyService.deleteSubassembly(subassembly);
@@ -60,6 +54,17 @@ public class SubassemblyController {
     @PutMapping("")
     public Subassembly updateSubassembly(@RequestBody Subassembly subassembly){
         return subassemblyService.updateSubassembly(subassembly);
+    }
+
+
+
+
+    @PostMapping("/{subassemblyId}/part/{partId}")
+    public ResponseEntity<Subassembly> addPartToSubassembly(@PathVariable Long subassemblyId,@PathVariable Long partId){
+        System.out.println(partId);
+        System.out.println(subassemblyId);
+        Subassembly subassembly = subassemblyService.addPartToSubassembly(subassemblyId, partId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(subassembly);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
