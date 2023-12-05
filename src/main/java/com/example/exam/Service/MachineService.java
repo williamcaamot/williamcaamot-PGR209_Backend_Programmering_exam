@@ -40,8 +40,9 @@ public class MachineService {
         return machineRepository.save(machine);
     }
 
-    public void deleteMachine(Machine address){
-        machineRepository.delete(address);
+    public void deleteMachine(Machine machine){
+        machineRepository.findById(machine.getMachineId()).orElseThrow(() -> new EntityNotFoundException("Machine with ID " + machine.getMachineId() + " could not be found!"));
+        machineRepository.delete(machine);
     }
     public Machine updateMachine(Machine machine){
         machineRepository.findById(machine.getMachineId()).orElseThrow(() -> new EntityNotFoundException("Machine with ID " + machine.getMachineId() + " could not be found!"));

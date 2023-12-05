@@ -85,6 +85,8 @@ public class SubassemblyEndToEndTest {
 
     //Delete subassembly
 
+    //Wrap in try catch and expect it to throw and exception? Does the delete method even check if it already exists? Then if not that should be implemented
+
     //Update subassembly
 
 

@@ -39,6 +39,7 @@ public class OrderService {
     }
 
     public void deleteOrder(CustomerOrder customerOrder){
+        orderRepository.findById(customerOrder.getOrderId()).orElseThrow(() -> new EntityNotFoundException("Orde with ID " + customerOrder.getOrderId() + " could not be found!"));
         orderRepository.delete(customerOrder);
     }
     public CustomerOrder updateOrder(CustomerOrder customerOrder){

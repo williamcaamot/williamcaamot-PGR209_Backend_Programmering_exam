@@ -42,6 +42,7 @@ public class SubassemblyService {
     }
 
     public void deleteSubassembly(Subassembly subassembly){
+        subassemblyRepository.findById(subassembly.getSubassemblyId()).orElseThrow(() -> new EntityNotFoundException("Subassembly with ID " + subassembly.getSubassemblyId() + " could not be found!"));
         subassemblyRepository.delete(subassembly);
     }
     public Subassembly updateSubassembly(Subassembly subassembly){

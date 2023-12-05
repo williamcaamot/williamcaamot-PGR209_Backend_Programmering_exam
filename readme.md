@@ -17,4 +17,5 @@ https://documenter.getpostman.com/view/29427105/2s9YeK39SX
 - [X] Can add existing parts to a subassembly (see API documentation)
 - [X] Not possible to update non-existing entities
 - [X] Throwing and handling exceptions if trying to get a non-exisiting entity by id
+- [X] Trying to delete non-existing throws error in service, this exception message is returned in the response
 - [X] Extended Faker for custom faking of partname, partdescription, subassembly name, subassembly description, machine name and machine description.

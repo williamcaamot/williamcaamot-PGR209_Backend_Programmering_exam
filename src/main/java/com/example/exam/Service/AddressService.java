@@ -39,6 +39,7 @@ public class AddressService {
     }
 
     public void deleteAddress(Address address){
+        addressRepository.findById(address.getAddressId()).orElseThrow(() -> new EntityNotFoundException("Address with ID: " + address.getAddressId() + "could not be found!"));
         addressRepository.delete(address);
     }
     public Address updateAddress(Address address){

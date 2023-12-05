@@ -40,6 +40,7 @@ public class PartService {
     }
 
     public void deletePart(Part part){
+        partRepository.findById(part.getPartId()).orElseThrow(() -> new EntityNotFoundException("Part with ID " + part.getPartId() + " could not be found!"));
         partRepository.delete(part);
     }
     public Part updatePart(Part part){
