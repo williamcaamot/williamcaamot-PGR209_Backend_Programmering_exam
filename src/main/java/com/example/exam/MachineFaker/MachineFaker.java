@@ -40,4 +40,60 @@ public class MachineFaker extends Faker {
     }
 
 
+    public String subassemblyName(){
+
+        List<String> subassemblyNames = new ArrayList<>();
+
+        subassemblyNames.add("TorqueScrew Screw Module");
+        subassemblyNames.add("TorqueBolt Bolt Screw Module");
+        subassemblyNames.add("SuperFan Cooling System");
+        subassemblyNames.add("ExtraRemote Wireless Controller");
+        subassemblyNames.add("PowerSafe 400W Power Supply");
+
+        int randomNumber = random().nextInt(0, subassemblyNames.size() - 1);
+        return subassemblyNames.get(randomNumber);
+    }
+
+    public String subassemblyDescription(){
+
+        List<String> subassemblyDescriptions = new ArrayList<>();
+
+        subassemblyDescriptions.add("For screwing screws with high precision torque.");
+        subassemblyDescriptions.add("For screwing bolts with high precision torque.");
+        subassemblyDescriptions.add("Super high speed fans for cooling any type of machine.");
+        subassemblyDescriptions.add("Wireless control module with long range up to 500ft.");
+        subassemblyDescriptions.add("Robust SMPS power supply with surge control");
+
+        int randomNumber = random().nextInt(0, subassemblyDescriptions.size() - 1);
+        return subassemblyDescriptions.get(randomNumber);
+    }
+
+    public String machineName(){
+        List<String> machineNames = new ArrayList<>();
+
+        machineNames.add("5inch Speaker Cone Manufacturing machine");
+        machineNames.add("12inch Speaker Cone Manufacturing machine");
+        machineNames.add("18inch Speaker Cone Manufacturing machine");
+        machineNames.add("3Inch tweeter manufacturing machine");
+        machineNames.add("800W Amplifier Module Manufacturing machine");
+        machineNames.add("1800W Amplifier Module manufacturing machine");
+
+        int randomNumber = random().nextInt(0, machineNames.size() - 1);
+        return machineNames.get(randomNumber);
+    }
+
+
+    public String machineDescription(){
+        List<String> machineDescriptions = new ArrayList<>();
+
+        machineDescriptions.add("For manufacturing high quality speaker cones made out of kevlar");
+        machineDescriptions.add("For manufacturing high quality tweeters with a titanium diafragm");
+        machineDescriptions.add("For manufacturing hight quality amplifiers with SMPS with voltage from 120v-240v");
+        machineDescriptions.add("For manufacturing high efficiency speaker elements with nedynum magnets.");
+
+        int randomNumber = random().nextInt(0, machineDescriptions.size() - 1);
+        return machineDescriptions.get(randomNumber);
+    }
+
+
 }
