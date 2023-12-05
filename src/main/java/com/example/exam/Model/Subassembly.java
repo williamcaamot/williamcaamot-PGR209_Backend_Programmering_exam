@@ -33,4 +33,8 @@ public class Subassembly {
     @Column(name="subassembly_description")
     private String subassemblyDescription;
 
+    public Subassembly(String subassemblyName, String subassemblyDescription) {
+        this.subassemblyName = subassemblyName;
+        this.subassemblyDescription = subassemblyDescription;
+    }
 }

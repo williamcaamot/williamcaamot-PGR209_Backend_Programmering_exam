@@ -37,6 +37,13 @@ public class PartEndToEndTest {
     }
 
     @Test
+    void shouldFetchNonExistingPart() throws Exception {
+        mockMvc.perform(get("/api/part/14287210"))
+                .andExpect(status().isNotFound());
+    }
+
+
+    @Test
     void shouldAddNewPart() throws Exception {
         //Arrange
         Part part = new Part("M5 Bolt", "Used for bolting stuff together");
