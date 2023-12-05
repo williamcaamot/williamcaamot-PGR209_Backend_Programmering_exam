@@ -61,8 +61,6 @@ public class SubassemblyController {
 
     @PostMapping("/{subassemblyId}/part/{partId}")
     public ResponseEntity<Subassembly> addPartToSubassembly(@PathVariable Long subassemblyId,@PathVariable Long partId){
-        System.out.println(partId);
-        System.out.println(subassemblyId);
         Subassembly subassembly = subassemblyService.addPartToSubassembly(subassemblyId, partId);
         return ResponseEntity.status(HttpStatus.CREATED).body(subassembly);
     }
