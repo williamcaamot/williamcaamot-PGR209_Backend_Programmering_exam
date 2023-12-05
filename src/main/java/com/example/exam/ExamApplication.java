@@ -31,7 +31,7 @@ public class ExamApplication {
         MachineFaker faker = new MachineFaker();
             for(int i = 0; i < 20; i++){
                 partRepository.save(new Part(faker.partName(), faker.partDescription()));
-                subassemblyRepository.save(new Subassembly("Sub assemblyname " + i, "Subassembly description " + i));
+                subassemblyRepository.save(new Subassembly(faker.subassemblyName(), faker.subassemblyDescription()));
             }
 
         return null;

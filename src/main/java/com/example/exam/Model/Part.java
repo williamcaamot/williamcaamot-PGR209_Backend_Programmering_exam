@@ -15,7 +15,7 @@ public class Part {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "part_seq_gen")
     @SequenceGenerator(name = "part_seg_gen", sequenceName = "part_seq", allocationSize = 1)
     @Column(name = "part_id")
-    public Long partId = 0L;
+    private Long partId = 0L;
 
     @Column(name="part_name")
     private String partName;
