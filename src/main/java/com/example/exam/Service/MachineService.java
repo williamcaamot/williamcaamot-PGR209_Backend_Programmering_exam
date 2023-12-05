@@ -28,8 +28,9 @@ public class MachineService {
         return machineRepository.findAll(pageRequest);
     }
 
-    public Machine getMachineById(Long id){
-        return machineRepository.findById(id).orElse(null);
+    public Machine getMachineById(Long id) {
+        return machineRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Machine with ID " + id + " could not be found!"));
+
     }
     public List<Machine> getMachine(){
         return machineRepository.findAll();

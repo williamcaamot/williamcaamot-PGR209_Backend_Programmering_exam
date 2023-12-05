@@ -26,8 +26,9 @@ public class OrderService {
         return orderRepository.findAll(pageRequest);
     }
 
-    public CustomerOrder getOrderById(Long id){
-        return orderRepository.findById(id).orElse(null);
+    public CustomerOrder getOrderById(Long id) {
+        return orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Orde with ID " + id + " could not be found!"));
+
     }
     public List<CustomerOrder> getOrder(){
         return orderRepository.findAll();

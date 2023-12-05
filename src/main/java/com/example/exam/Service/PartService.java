@@ -32,7 +32,7 @@ public class PartService {
 
 
     public Part getPartById(Long id){
-        return partRepository.findById(id).orElse(null);
+        return partRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Part with ID " + id + " could not be found!"));
     }
 
     public Part addPart(Part part){

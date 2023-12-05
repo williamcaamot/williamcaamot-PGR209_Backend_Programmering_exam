@@ -27,7 +27,7 @@ public class SubassemblyService {
     }
 
     public Subassembly getSubassemblyById(Long id){
-        return subassemblyRepository.findById(id).orElse(null);
+        return subassemblyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Subassembly with ID " + id + " could not be found!"));
     }
     public List<Subassembly> getSubassembly(){
         return subassemblyRepository.findAll();

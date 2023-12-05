@@ -28,7 +28,7 @@ public class AddressService {
 
 
     public Address getAddressById(Long id){
-        return addressRepository.findById(id).orElse(null);
+        return addressRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Address with ID: " + id + "could not be found!"));
     }
     public List<Address> getAddress(){
         return addressRepository.findAll();

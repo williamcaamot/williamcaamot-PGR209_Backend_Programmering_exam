@@ -28,7 +28,7 @@ public class CustomerService {
     }
 
     public Customer getCustomerById(Long id) throws Exception {
-        return customerRepository.findById(id).orElse(null); //TODO can have custom exceptions here
+        return customerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Customer with ID: " + id + " could not be found!"));
     }
     public List<Customer> getCustomers(){
         return customerRepository.findAll();
