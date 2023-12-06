@@ -149,7 +149,7 @@ public class SubassemblyEndToEndTest {
         Subassembly subassembly = new Subassembly("Subassembly Name", "Subassembly Description");
         Subassembly updateSubassembly = new Subassembly("Updated subassembly name", "updated subassmebly description");
         String subassemblyJson = objectMapper.writeValueAsString(subassembly);
-        String updateSubassemblyJson = objectMapper.writeValueAsString(updateSubassembly);
+
 
         MvcResult addedRes = mockMvc.perform(post("/api/subassembly")
                         .contentType("application/json")
@@ -161,17 +161,13 @@ public class SubassemblyEndToEndTest {
         String addedResJson = addedRes.getResponse().getContentAsString();
         Subassembly addedSubassembly = objectMapper.readValue(addedResJson, Subassembly.class);
         updateSubassembly.setSubassemblyId(addedSubassembly.getSubassemblyId());
+        String updateSubassemblyJson = objectMapper.writeValueAsString(updateSubassembly);
 
         MvcResult updatedRes = mockMvc.perform(put("/api/subassembly")
                 .contentType("application/json")
                 .content(updateSubassemblyJson))
                 .andExpect(status().isOk())
                 .andReturn();
-
-//TODO FIX THIS
-
-
-
     }
 
 }
