@@ -26,9 +26,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 @SpringBootTest
-@AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@AutoConfigureMockMvc
 public class OrderEndToEndTest {
 
 
@@ -156,7 +157,7 @@ public class OrderEndToEndTest {
 
     @Test
     void shouldCreateOrderThenDeleteIt() throws Exception{
-
+//TODO COMPLETE THIS
     }
 
     @Test
@@ -174,7 +175,7 @@ public class OrderEndToEndTest {
 
     @Test
     void shouldCreateOrderThenUpdateIt() throws Exception{
-
+//TODO COMPLETE THIS
     }
 
 
