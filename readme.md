@@ -3,7 +3,9 @@ https://documenter.getpostman.com/view/29427105/2s9YeK39SX
 
 ## TODO
 - [ ] Fix bidirectional getting of objects, when getting orders, customers does not "follow along", same with addresses. I think these are the only two bidirectional relationships we have.
-
+- [ ] Should tests be dependent on data from the commandlinerunner in the application?
+- [ ] More E2E tests, have same "tests" for all entity types
+- [ ] Better cleanup? So that the spring context doesn't have to be loaded multiple times in tests
 
 ## Functionality
 - [X] Get one by ID for all entity types

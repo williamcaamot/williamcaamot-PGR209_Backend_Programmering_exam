@@ -52,7 +52,7 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(addedCustomer);
     }
 
-    @PostMapping("/{customerId}/addresses/{addressId}")
+    @PostMapping("/{customerId}/address/{addressId}")
     public ResponseEntity<Customer> addAddressToCustomer(@PathVariable Long customerId, @PathVariable Long addressId) {
         Customer updatedCustomer = customerService.addAddressToCustomer(customerId, addressId);
         return ResponseEntity.status(HttpStatus.CREATED).body(updatedCustomer);

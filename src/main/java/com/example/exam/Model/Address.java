@@ -37,4 +37,9 @@ public class Address {
     @ManyToMany(mappedBy = "addresses", cascade = CascadeType.ALL)
     private List<Customer> customers = new ArrayList<>();
 
+    public Address(String country, String area, String streetAndNumber) {
+        this.country = country;
+        this.area = area;
+        this.streetAndNumber = streetAndNumber;
+    }
 }

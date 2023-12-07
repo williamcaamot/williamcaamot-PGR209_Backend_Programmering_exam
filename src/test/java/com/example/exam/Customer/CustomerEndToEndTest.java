@@ -1,10 +1,7 @@
 package com.example.exam.Customer;
 
 import com.example.exam.Model.Customer;
-import com.example.exam.Model.CustomerOrder;
-import com.example.exam.Model.Machine;
 import com.example.exam.Repo.CustomerRepository;
-import com.example.exam.Repo.MachineRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.junit.jupiter.api.Test;
@@ -17,7 +14,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -74,6 +71,19 @@ public class CustomerEndToEndTest {
         MvcResult res = mockMvc.perform(get("/api/customer/21312"))
                 .andExpect(status().isNotFound())
                 .andReturn();
+    }
+
+
+    @Test
+    void shouldTryDeleteNonExistingCustomer() throws Exception{
+        Customer customer = new Customer("Cusotmer name", "customer email");
+        customer.setCustomerId(21312L);
+        String customerJson = objectMapper.writeValueAsString(customer);
+
+        mockMvc.perform(delete("/api/customer")
+                        .contentType("application/json")
+                        .content(customerJson))
+                .andExpect(status().isNotFound());
     }
 
 }
