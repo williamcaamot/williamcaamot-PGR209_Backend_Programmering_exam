@@ -39,9 +39,8 @@ public class Customer {
     private List<Address> addresses = new ArrayList<>();
 
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
-    private List<CustomerOrder> customerOrders;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<CustomerOrder> customerOrders = new ArrayList<>();
 
 
     public Customer(String customerName, String customerEmail){

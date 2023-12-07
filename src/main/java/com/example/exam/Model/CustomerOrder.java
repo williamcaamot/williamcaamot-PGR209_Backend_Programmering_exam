@@ -1,10 +1,12 @@
 package com.example.exam.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,9 +27,15 @@ public class CustomerOrder {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonIgnore
     private Customer customer;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
-    private List<Machine> machines;
+    private List<Machine> machines = new ArrayList<>();
+
+    public CustomerOrder(String orderDescription, Customer customer) {
+        this.orderDescription = orderDescription;
+        this.customer = customer;
+    }
 }

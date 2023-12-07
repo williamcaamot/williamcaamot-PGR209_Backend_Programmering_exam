@@ -58,6 +58,8 @@ public class SubassemblyEndToEndTest {
         Subassembly subassembly = objectMapper.readValue(resString, Subassembly.class);
 
         assertEquals(subassembly.getSubassemblyId(), 1);
+        assertNotNull(subassembly.getSubassemblyName());
+        assertNotNull(subassembly.getSubassemblyDescription());
 
     }
 
