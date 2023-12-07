@@ -1,6 +1,10 @@
 ## API Documentation
 https://documenter.getpostman.com/view/29427105/2s9YeK39SX
 
+## TODO
+- [ ] Fix bidirectional getting of objects, when getting orders, customers does not "follow along", same with addresses. I think these are the only two bidirectional relationships we have.
+
+
 ## Functionality
 - [X] Get one by ID for all entity types
 - [X] Get all with pagination for all entity types
