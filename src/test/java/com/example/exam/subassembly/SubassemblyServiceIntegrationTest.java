@@ -34,7 +34,7 @@ public class SubassemblyServiceIntegrationTest {
 
         assertNotNull(subassemblies);
         assertFalse(subassemblies.isEmpty());
-
+        //dummy line
     }
 
     @Test
