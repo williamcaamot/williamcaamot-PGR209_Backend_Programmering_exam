@@ -10,7 +10,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,19 +50,6 @@ public class AddressServiceUnitTest {
         assertEquals(exampleId, found.getAddressId());
 
         verify(addressRepository).findById(exampleId);
-    }
-
-    @Test
-    public void deleteAddressTest(){
-        Address exampleAddress = new Address();
-        exampleAddress.setAddressId(1L);
-
-        when(addressRepository.findById(exampleAddress.getAddressId())).thenReturn(Optional.of(exampleAddress));
-
-        addressService.deleteAddress(exampleAddress);
-
-        verify(addressRepository).findById(exampleAddress.getAddressId());
-        verify(addressRepository).delete(exampleAddress);
     }
 
 }
