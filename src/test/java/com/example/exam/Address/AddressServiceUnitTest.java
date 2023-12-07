@@ -8,8 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import java.util.List;
+import java.util.Optional;
+
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -30,5 +36,21 @@ public class AddressServiceUnitTest {
         assert addresses.size() == 3;
     }
 
+    @Test
+    public void getAddressById(){
+        Long exampleId = 1L;
+        Address mockAddress = new Address();
+
+        mockAddress.setAddressId(exampleId);
+
+        when(addressRepository.findById(exampleId)).thenReturn(Optional.of(mockAddress));
+
+        Address found = addressService.getAddressById(exampleId);
+
+        assertNotNull(found);
+        assertEquals(exampleId, found.getAddressId());
+
+        verify(addressRepository).findById(exampleId);
+    }
 
 }

@@ -9,7 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
+import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -28,5 +32,22 @@ public class OrderServiceUnitTest {
 
         var orders = OrderService.getOrder();
         assert orders.size() == 2;
+    }
+
+    @Test
+    public void getCustomerOrderById(){
+        Long exampleId = 1L;
+        CustomerOrder mockCustomerOrder = new CustomerOrder();
+
+        mockCustomerOrder.setOrderId(exampleId);
+
+        when(OrderRepository.findById(exampleId)).thenReturn(Optional.of(mockCustomerOrder));
+
+        CustomerOrder found = OrderService.getOrderById(exampleId);
+
+        assertNotNull(found);
+        assertEquals(exampleId, found.getOrderId());
+
+        verify(OrderRepository).findById(exampleId);
     }
 }
