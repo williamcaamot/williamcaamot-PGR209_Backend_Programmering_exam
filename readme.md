@@ -15,6 +15,7 @@ https://documenter.getpostman.com/view/29427105/2s9YeK39SX
 ## Additional functionality
 - [X] Can add existing address to a customer (see API documentation)
 - [X] Can add existing parts to a subassembly (see API documentation)
+- [X] Can add exisiting subassembly to machine (see API documentation)
 - [X] Not possible to update non-existing entities, returns message in response and 404 status code
 - [X] Throwing and handling exceptions if trying to get a non-exisiting entity by id, returns message in resposne and 404 status code
 - [X] Trying to delete non-existing throws error in service, the exception message is returned in the response with code 404 status code

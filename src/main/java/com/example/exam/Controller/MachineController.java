@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.crypto.Mac;
 import java.util.List;
 
 @RestController
@@ -67,6 +68,14 @@ public class MachineController {
         return machineService.updateMachine(machine);
     }
 
+
+
+
+    @PostMapping("/{machineId}/subassembly/{subassemblyId}")
+    public ResponseEntity<Machine> addSubassemblyToMachine(@PathVariable Long machineId, @PathVariable Long subassemblyId){
+        Machine machine = machineService.addSubassemblyToMachine(machineId, subassemblyId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(machine);
+    }
 
 
     @ExceptionHandler(EntityNotFoundException.class)

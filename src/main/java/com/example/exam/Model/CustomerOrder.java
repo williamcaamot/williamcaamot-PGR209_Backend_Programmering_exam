@@ -28,6 +28,6 @@ public class CustomerOrder {
     private Customer customer;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "machine_id")
+    @JoinColumn(name = "order_id")
     private List<Machine> machines;
 }

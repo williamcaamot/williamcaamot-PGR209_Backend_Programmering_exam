@@ -33,4 +33,9 @@ public class Machine {
             inverseJoinColumns = @JoinColumn(name="subassembly_id")
     )
     private List<Subassembly> subassemblies;
+
+    public Machine(String machineName, String machineDescription) {
+        this.machineName = machineName;
+        this.machineDescription = machineDescription;
+    }
 }
