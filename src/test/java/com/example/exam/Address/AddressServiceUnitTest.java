@@ -53,4 +53,17 @@ public class AddressServiceUnitTest {
         verify(addressRepository).findById(exampleId);
     }
 
+    @Test
+    public void deleteAddressTest(){
+        Address exampleAddress = new Address();
+        exampleAddress.setAddressId(1L);
+
+        when(addressRepository.findById(exampleAddress.getAddressId())).thenReturn(Optional.of(exampleAddress));
+
+        addressService.deleteAddress(exampleAddress);
+
+        verify(addressRepository).findById(exampleAddress.getAddressId());
+        verify(addressRepository).delete(exampleAddress);
+    }
+
 }
