@@ -1,12 +1,10 @@
 package com.example.exam;
 
 import com.example.exam.MachineFaker.MachineFaker;
+import com.example.exam.Model.Machine;
 import com.example.exam.Model.Part;
 import com.example.exam.Model.Subassembly;
-import com.example.exam.Repo.AddressRepository;
-import com.example.exam.Repo.CustomerRepository;
-import com.example.exam.Repo.PartRepository;
-import com.example.exam.Repo.SubassemblyRepository;
+import com.example.exam.Repo.*;
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,11 +25,16 @@ public class ExamApplication {
             CustomerRepository customerRepository,
             AddressRepository addressRepository,
             PartRepository partRepository,
-            SubassemblyRepository subassemblyRepository){
+            SubassemblyRepository subassemblyRepository,
+            MachineRepository machineRepository){
         MachineFaker faker = new MachineFaker();
             for(int i = 0; i < 20; i++){
                 partRepository.save(new Part(faker.partName(), faker.partDescription()));
+
                 subassemblyRepository.save(new Subassembly(faker.subassemblyName(), faker.subassemblyDescription()));
+
+                machineRepository.save(new Machine(faker.machineName(), faker.machineDescription()));
+
             }
 
         return null;
