@@ -70,10 +70,8 @@ public class OrderEndToEndTest {
 
     @Test
     void shouldCreateNewOrderWithExistingCustomer() throws Exception{
-        Faker faker = new Faker();
 
-        Customer customer = customerRepository.findById(1L).orElse(null);
-        CustomerOrder customerOrder = new CustomerOrder("Order name", customer);
+        CustomerOrder customerOrder = new CustomerOrder("Order name");
         String customerOrderJson = objectMapper.writeValueAsString(customerOrder);
 
         MvcResult res = mockMvc.perform(post("/api/order")
@@ -86,9 +84,7 @@ public class OrderEndToEndTest {
         CustomerOrder addedCustomerOrder = objectMapper.readValue(resString, CustomerOrder.class);
 
         assertEquals(addedCustomerOrder.getOrderDescription(), customerOrder.getOrderDescription());
-
-        customer = customerRepository.findById(1L).orElse(null);
-        System.out.println(customer.getCustomerOrders());
+        assertNotNull(addedCustomerOrder.getOrderId());
 
     }
 

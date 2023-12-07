@@ -38,4 +38,9 @@ public class CustomerOrder {
         this.orderDescription = orderDescription;
         this.customer = customer;
     }
+
+
+    public CustomerOrder(String orderDescription) {
+        this.orderDescription = orderDescription;
+    }
 }
