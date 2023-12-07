@@ -69,6 +69,13 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(customerOrder);
     }
 
+    @PostMapping("/{orderId}/machine/{machineId}")
+    public ResponseEntity<CustomerOrder> addMachineToOrder(@PathVariable Long orderId, @PathVariable Long machineId){
+        CustomerOrder customerOrder = orderService.addMachineToOrder(orderId, machineId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerOrder);
+
+    }
+
 
 
     @ExceptionHandler(EntityNotFoundException.class)

@@ -65,8 +65,17 @@ public class OrderService {
         customer.getCustomerOrders().add(customerOrder);
 
         return orderRepository.save(customerOrder);
-
     }
+
+
+    public CustomerOrder addMachineToOrder(Long orderId, Long machineId){
+        Machine machine = machineRepository.findById(machineId).orElseThrow(() -> new EntityNotFoundException("Machine with ID " + machineId + " could not be found!"));
+        CustomerOrder customerOrder = orderRepository.findById(orderId).orElseThrow(() -> new EntityNotFoundException("Order with ID " + orderId + " could not be found!"));
+
+        customerOrder.getMachines().add(machine);
+        return orderRepository.save(customerOrder);
+    }
+
 
 
 }

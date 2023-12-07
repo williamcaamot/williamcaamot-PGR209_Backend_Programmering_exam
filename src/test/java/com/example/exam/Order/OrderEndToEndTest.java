@@ -74,7 +74,7 @@ public class OrderEndToEndTest {
 
 
     @Test
-    void shouldCreateNewOrderWithExistingCustomer() throws Exception{
+    void shouldCreateNewOrder() throws Exception{
 
         CustomerOrder customerOrder = new CustomerOrder("Order name");
         String customerOrderJson = objectMapper.writeValueAsString(customerOrder);
@@ -90,8 +90,9 @@ public class OrderEndToEndTest {
 
         assertEquals(addedCustomerOrder.getOrderDescription(), customerOrder.getOrderDescription());
         assertNotNull(addedCustomerOrder.getOrderId());
-
     }
+
+
 
 
 }
