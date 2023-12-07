@@ -62,6 +62,15 @@ public class OrderController {
         return orderService.updateOrder(customerOrder);
     }
 
+
+    @PostMapping("/{orderId}/customer/{customerId}")
+    public ResponseEntity<CustomerOrder> addCustomerToOrder(@PathVariable Long orderId, @PathVariable Long customerId){
+        CustomerOrder customerOrder = orderService.addCustomerToOrder(orderId, customerId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerOrder);
+    }
+
+
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> handleEntityNotFound(EntityNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
