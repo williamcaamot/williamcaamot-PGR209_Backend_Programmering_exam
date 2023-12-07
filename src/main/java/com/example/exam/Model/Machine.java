@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,7 +33,7 @@ public class Machine {
             joinColumns = @JoinColumn(name="machine_id"),
             inverseJoinColumns = @JoinColumn(name="subassembly_id")
     )
-    private List<Subassembly> subassemblies;
+    private List<Subassembly> subassemblies = new ArrayList<>();
 
     public Machine(String machineName, String machineDescription) {
         this.machineName = machineName;
