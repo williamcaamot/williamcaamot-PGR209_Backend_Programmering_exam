@@ -10,11 +10,13 @@ import com.example.exam.Repo.PartRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import org.json.JSONArray;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -26,7 +28,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class OrderEndToEndTest {
+
 
     @Autowired
     MockMvc mockMvc;
@@ -51,6 +55,7 @@ public class OrderEndToEndTest {
         JSONArray subassemblies = new JSONArray(resString);
 
         //Assert
+        System.out.println(subassemblies.length());
         assertEquals(10, subassemblies.length());
     }
 
