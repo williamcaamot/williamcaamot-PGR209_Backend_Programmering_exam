@@ -129,5 +129,28 @@ public class PartEndToEndTest {
 
     }
 
+    @Test
+    void shouldAddPartThenDelete() throws Exception{
+        Part part = new Part("Part Name","Part Description");
+
+        String partJson = objectMapper.writeValueAsString(part);
+        MvcResult res = mockMvc.perform(post("/api/part")
+                        .contentType("application/json")
+                        .content(partJson))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        String responseString = res.getResponse().getContentAsString();
+        Part addedPart = objectMapper.readValue(responseString, Part.class);
+
+        assert part.getPartName().equals(addedPart.getPartName());
+        assert part.getPartDescription().equals(addedPart.getPartDescription());
+
+
+        MvcResult delRes = mockMvc.perform(delete("/api/part/" + addedPart.getPartId()))
+                .andExpect(status().isNoContent())
+                .andReturn();
+    }
+
 
 }

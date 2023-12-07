@@ -3,6 +3,7 @@ package com.example.exam.Order;
 
 import com.example.exam.Model.Customer;
 import com.example.exam.Model.CustomerOrder;
+import com.example.exam.Model.Machine;
 import com.example.exam.Model.Subassembly;
 import com.example.exam.Repo.CustomerRepository;
 import com.example.exam.Repo.OrderRepository;
@@ -22,8 +23,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -91,6 +91,92 @@ public class OrderEndToEndTest {
         assertEquals(addedCustomerOrder.getOrderDescription(), customerOrder.getOrderDescription());
         assertNotNull(addedCustomerOrder.getOrderId());
     }
+
+
+    @Test
+    void shouldAddCustomerToOrder() throws Exception{
+        //This tests use exisiting data in the database from the command line builder
+
+        CustomerOrder customerOrder;
+        Customer customer;
+
+        //ACT
+        mockMvc.perform(post("/api/order/1/customer/1"))
+                .andExpect(status().isCreated());
+
+        MvcResult orderRes = mockMvc.perform(get("/api/order/1"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        MvcResult customerRes = mockMvc.perform(get("/api/customer/1"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String orderJson = orderRes.getResponse().getContentAsString();
+        String customerJson = customerRes.getResponse().getContentAsString();
+
+        customerOrder = objectMapper.readValue(orderJson, CustomerOrder.class);
+        customer = objectMapper.readValue(customerJson, Customer.class);
+
+
+        //Assert
+        assertEquals(customer.getCustomerOrders().get(0).getOrderId(), customerOrder.getOrderId());
+        assertEquals(customer.getCustomerOrders().get(0).getOrderDescription(), customerOrder.getOrderDescription());
+    }
+
+    @Test
+    void shouldAddMachineToOrder() throws Exception{
+        CustomerOrder customerOrder;
+        Machine machine;
+
+        mockMvc.perform(post("/api/order/1/machine/1"))
+                .andExpect(status().isCreated());
+
+        MvcResult orderRes = mockMvc.perform(get("/api/order/1"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        MvcResult machineRes = mockMvc.perform(get("/api/machine/1"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String orderJson = orderRes.getResponse().getContentAsString();
+        String machineJson = machineRes.getResponse().getContentAsString();
+
+        customerOrder = objectMapper.readValue(orderJson, CustomerOrder.class);
+        machine = objectMapper.readValue(machineJson, Machine.class);
+
+
+        assertEquals(customerOrder.getMachines().get(0).getMachineId(), machine.getMachineId());
+        assertEquals(customerOrder.getMachines().get(0).getMachineName(), machine.getMachineName());
+        assertEquals(customerOrder.getMachines().get(0).getMachineDescription(), machine.getMachineDescription());
+
+
+    }
+
+    @Test
+    void shouldCreateOrderThenDeleteIt() throws Exception{
+
+    }
+
+    @Test
+    void shouldTryDeleteNonExistingOrder() throws Exception{
+        CustomerOrder customerOrder = new CustomerOrder("Order name");
+        customerOrder.setOrderId(213412L);
+        String customerOrderJson = objectMapper.writeValueAsString(customerOrder);
+
+        MvcResult res = mockMvc.perform(delete("/api/order")
+                        .contentType("application/json")
+                        .content(customerOrderJson))
+                .andExpect(status().isNotFound())
+                .andReturn();
+    }
+
+    @Test
+    void shouldCreateOrderThenUpdateIt() throws Exception{
+
+    }
+
 
 
 

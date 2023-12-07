@@ -58,6 +58,13 @@ public class PartController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @DeleteMapping("/{partId}")
+    public ResponseEntity deletePart(@PathVariable Long partId){
+        Part part = partService.getPartById(partId);
+        partService.deletePart(part);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
     @PutMapping("")
     public ResponseEntity<Part> updatePart(@RequestBody Part part) {
         Part updatedPart = partService.updatePart(part);
