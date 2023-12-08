@@ -10,7 +10,8 @@ https://documenter.getpostman.com/view/29427105/2s9YeK39SX
 
 
 ## Addititonal information 
-- We have used faker to add some data to the database on application startup. Some of our tests assume there is data in the database, these tests will fail if you remove the commandlinerunner in the entrypoint of the application. 
+- We have used faker to add some data to the database on application startup. Some of our tests assume there is data in the database, these tests will fail if you remove the commandlinerunner in the entrypoint of the application.
+- We interpreted that addresses needs to know about customers, but that customers shouldn't be part of the return data. Same for customerorders.
 
 ## Additional functionality
 - [X] Can add existing address to a customer (see API documentation)
