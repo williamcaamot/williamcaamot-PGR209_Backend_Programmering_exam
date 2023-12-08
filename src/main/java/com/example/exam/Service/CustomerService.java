@@ -4,7 +4,10 @@ import com.example.exam.Model.Address;
 import com.example.exam.Model.Customer;
 import com.example.exam.Repo.AddressRepository;
 import com.example.exam.Repo.CustomerRepository;
+import com.example.exam.Repo.OrderRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.Transient;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,10 +19,12 @@ import java.util.List;
 public class CustomerService {
     CustomerRepository customerRepository;
     AddressRepository addressRepository;
+    OrderRepository orderRepository;
     @Autowired
-    public CustomerService(CustomerRepository customerRepository, AddressRepository addressRepository) {
+    public CustomerService(CustomerRepository customerRepository, AddressRepository addressRepository, OrderRepository orderRepository) {
         this.customerRepository = customerRepository;
         this.addressRepository = addressRepository;
+        this.orderRepository = orderRepository;
     }
 
     public Customer getCustomerById(Long id) throws Exception {
@@ -42,10 +47,20 @@ public class CustomerService {
 
 
 
+    @Transactional
     public void deleteCustomer(Customer customer){
-        customerRepository.findById(customer.getCustomerId()).orElseThrow(() -> new EntityNotFoundException("Customer with ID: " + customer.getCustomerId() + " could not be found!"));
+        Customer foundCustomer = customerRepository.findById(customer.getCustomerId()).orElseThrow(() -> new EntityNotFoundException("Customer with ID: " + customer.getCustomerId() + " could not be found!"));
+
+        if (foundCustomer.getCustomerOrders() != null) {
+            foundCustomer.getCustomerOrders().forEach(customerOrder -> {
+                orderRepository.delete(customerOrder);
+            });
+            foundCustomer.getCustomerOrders().clear();
+        }
         customerRepository.delete(customer);
     }
+
+
     public Customer updateCustomer(Customer customer){
         customerRepository.findById(customer.getCustomerId()).orElseThrow(() -> new EntityNotFoundException("Customer with ID: " + customer.getCustomerId() + " could not be found!"));
         return customerRepository.save(customer);
