@@ -23,11 +23,6 @@ public class PartController {
         this.partService = partService;
     }
 
-    /*@GetMapping
-    public List<Part> getParts(){
-        return partService.getParts();
-    } */
-
     @GetMapping("")
     public ResponseEntity<List<Part>> getParts(
             @RequestParam(defaultValue = "0") int page,

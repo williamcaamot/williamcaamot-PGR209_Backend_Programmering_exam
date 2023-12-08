@@ -23,11 +23,6 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    /*@GetMapping
-    public List<CustomerOrder> getOrders(){
-        return orderService.getOrder();
-    } */
-
     @GetMapping("")
     public ResponseEntity<List<CustomerOrder>> getOrders(
             @RequestParam(defaultValue = "0") int page,

@@ -25,12 +25,6 @@ public class MachineController {
         this.machineService = machineService;
     }
 
-
-    /*@GetMapping("")
-    public List<Machine> getMachines() {
-        return machineService.getMachine();
-    } */
-
     @GetMapping("")
     public ResponseEntity<List<Machine>> getMachine(
             @RequestParam(defaultValue = "0") int page,

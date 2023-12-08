@@ -26,12 +26,6 @@ public class AddressController {
     }
 
 
-    //@GetMapping("")
-    //public List<Address> getAddress() {
-    //    return addressService.getAddress();
-    //}
-
-    //Test with pagination
     @GetMapping("")
     public ResponseEntity<List<Address>> getAddresses(
             @RequestParam(defaultValue = "0") int page,

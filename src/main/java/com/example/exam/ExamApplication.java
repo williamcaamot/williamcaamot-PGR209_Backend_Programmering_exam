@@ -29,19 +29,16 @@ public class ExamApplication {
         MachineFaker faker = new MachineFaker();
             for(int i = 0; i < 20; i++){
                 partRepository.save(new Part(faker.partName(), faker.partDescription()));
-
                 subassemblyRepository.save(new Subassembly(faker.subassemblyName(), faker.subassemblyDescription()));
-
                 machineRepository.save(new Machine(faker.machineName(), faker.machineDescription()));
 
                 Customer customer = new Customer(faker.superhero().name(),faker.internet().emailAddress());
                 CustomerOrder customerOrder = new CustomerOrder("Order " + i,  customer);
-
                 customerOrder.setCustomer(customer);
                 customer.getCustomerOrders().add(customerOrder);
 
                 customerRepository.save(customer);
-
+                addressRepository.save(new Address(faker.country().name(),faker.address().cityName(),faker.address().streetAddress()));
             }
 
         return null;

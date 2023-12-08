@@ -23,11 +23,6 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    /*@GetMapping("")
-    public List<Customer> getCustomers() {
-        return customerService.getCustomers();
-    } */
-
     @GetMapping("")
     public ResponseEntity<List<Customer>> getCustomers(
             @RequestParam(defaultValue = "0") int page,
