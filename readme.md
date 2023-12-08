@@ -1,6 +1,10 @@
 ## API Documentation
 https://documenter.getpostman.com/view/29427105/2s9YeK39SX
 
+## Run the application
+- SDK to use: Amazon Correto 20.0.2 or OpenJDK 19.
+- Confirmed running in intelliJ with both versions above.
+
 ## Functionality
 - [X] Get one by ID for all entity types
 - [X] Get all with pagination for all entity types
