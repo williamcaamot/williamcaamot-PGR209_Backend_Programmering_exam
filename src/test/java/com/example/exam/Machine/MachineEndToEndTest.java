@@ -12,10 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import javax.crypto.Mac;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -72,7 +73,6 @@ public class MachineEndToEndTest {
     }
 
 
-
     @Test
     void shouldCreateNewMachine() throws Exception {
         //Arrange
@@ -101,12 +101,63 @@ public class MachineEndToEndTest {
         machineRepository.delete(addedMachine);
     }
 
+    @Test
+    void shouldAddSubassemblyToMachine() throws Exception {
+        MvcResult res = mockMvc.perform(post("/api/machine/1/subassembly/1"))
+                .andExpect(status().isCreated())
+                .andReturn();
 
-    //TODO test to add subassembly to machine
+        String resString = res.getResponse().getContentAsString();
+        Machine machine = objectMapper.readValue(resString, Machine.class);
 
-    //TODO test for updating machine
+        assertNotNull(machine.getMachineId());
+        assertNotNull(machine.getMachineName());
+        assertNotNull(machine.getMachineDescription());
+        assertNotNull(machine.getSubassemblies());
+        assertNotNull(machine.getSubassemblies().get(0));
+        assertNotNull(machine.getSubassemblies().get(0).getSubassemblyId());
+        assertNotNull(machine.getSubassemblies().get(0).getSubassemblyName());
+        assertNotNull(machine.getSubassemblies().get(0).getSubassemblyDescription());
 
-    //TODO test for deleting machine
+
+    }
+
+
+    //This test will also delete the machine afterwards, therefore it tests that as well:
+    @Test
+    void shouldAddMachineThenUpdateIt() throws Exception {
+        //Add machine first
+        Machine machineToAdd = new Machine("Cool Machine", "A machine that cools you down");
+        String machineToAddJson = objectMapper.writeValueAsString(machineToAdd);
+
+        MvcResult addedRes = mockMvc.perform(post("/api/machine")
+                        .contentType("application/json")
+                        .content(machineToAddJson))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        String addedResString = addedRes.getResponse().getContentAsString();
+        Machine addedMachine = objectMapper.readValue(addedResString, Machine.class);
+
+        //Update machine
+        Machine machineToUpdate = new Machine("Hot Machine", "A machine that heats you up");
+        machineToUpdate.setMachineId(addedMachine.getMachineId());
+        String machineToUpdateJson = objectMapper.writeValueAsString(machineToUpdate);
+
+        MvcResult updatedRes = mockMvc.perform(put("/api/machine")
+                .contentType("application/json")
+                        .content(machineToUpdateJson))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String udpatedResString = updatedRes.getResponse().getContentAsString();
+        Machine updatedMachine = objectMapper.readValue(udpatedResString, Machine.class);
+
+        assertEquals(updatedMachine.getMachineId(), addedMachine.getMachineId());
+        assertEquals(machineToUpdate.getMachineName(), updatedMachine.getMachineName());
+        assertEquals(machineToUpdate.getMachineDescription(), updatedMachine.getMachineDescription());
+
+    }
 
 
 }
